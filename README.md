@@ -16,7 +16,6 @@ ticketdata for test:
     "category": "Wonderful"
 }# TechScrumExercise
 # TechScrumExercise
-# TechScrumExercise
-# TechScrumExercise
-# TechScrumExercise
-# TechScrumExercise
+
+Need to install frontend:
+npm install eslint-config-react-app --save-dev
