@@ -1,11 +1,13 @@
 import { Request, Response } from "express";
+// import * as ticketController
+// api 
 import {  indexTicket, showTicket, storeTicket, updateTicket, destroyTicket } from "../../services/v1/ticketService";
 import { validationResult } from "express-validator"; 
 import { TicketData } from '../../types/Ticket';
 import mongoose from 'mongoose';
 import Ticket from "../../model/ticket";
 
-// TODO: I think this part can be simplified.
+// TODO: I think this part can be simplified. (decorator)
 export async function ticketIndex (req: Request, res: Response) {
     const error = validationResult(req);
     if(!error.isEmpty()) {
@@ -15,6 +17,7 @@ export async function ticketIndex (req: Request, res: Response) {
     }
     const tickets = await indexTicket();
     res.send("[Ticket Controller]: ticketIndex is called.");
+    // throw the error
 }
 
 export async function ticketShow (req: Request, res: Response) {
@@ -63,7 +66,7 @@ export async function ticketUpdate (req: Request, res: Response) {
         const errorMessages = error.array().map(error => `${error.param}: ${error.msg}`);
         console.log(errorMessages);
         return res.status(422).json({ errors: error.array() });
-    }
+    } // middleware
     const { id } = req.params;
     try {
         const result = await updateTicket(id, req.body);
@@ -72,6 +75,7 @@ export async function ticketUpdate (req: Request, res: Response) {
         } else {
           return res.status(404).json({ message: result.message });
         }
+        //throw
     } catch (error:any) {
         return res.status(500).json({ message: 'Internal server error', error: error.message });
     }

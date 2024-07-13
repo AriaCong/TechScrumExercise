@@ -32,3 +32,4 @@ export function logout(req: Request, res: Response) {
     logoutUser(req.body);
     res.send("[controller]:logoutController is called");
 }
+//export default, so it can be import in routes as xxx

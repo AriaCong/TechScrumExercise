@@ -33,7 +33,7 @@ function Register() {
                 Hello {user.name}
             </h1>
             <p>{user.email}</p>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <input 
                     name="name"
                     value={user.name}

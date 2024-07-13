@@ -4,20 +4,22 @@ import { validationResult } from 'express-validator'; // this is not there???
 import User from '../../model/user';
 import config from '../../config/app'; // the secret key is stored here
 
-export async function registerUser(req: Request) {
+export async function registerUser(body: {email: string, name: string, password: string}) {
     //const email = req.body.email;
-    const { email = null} = req.body // QUESTION: Why does it need  =null ?
-    const user = await User.findOne(email);
+    const { email =null} = body // QUESTION: Why does it need  =null ?
+    console.log("------------>");
+    const user = await User.findOne({email}); // email: email
     // if (user) {
     //     return { error: 'User already exists' };
     // }
     if (user) throw new Error('User already exists');
-    const newUser = new User(req.body);
+    const newUser = new User(body);
     const validationToken = jwt.sign({ id: newUser.id }, config.secret);
     newUser.token = validationToken;
     await newUser.save();
     console.log("newUser Registed-->", newUser);
     return newUser;
+    return null;
 }
 /* Login Steps:
 1. Find the user by email and password. It comes from the request body.
