@@ -65,6 +65,8 @@ export async function logoutUser(body: UserData) {
     // const authHeader = req.headers.authorization;
     console.log("logoutService-->", body);
     const { email=null} = body;
+    const user = await User.findOne({email});
+    const decode: any = jwt.verify(authHeader, config.secret);
     // logoutUser(req.body);
     // if (!authHeader) {
     //     return res.status(401).json({ error: 'Authorization header is required' });
