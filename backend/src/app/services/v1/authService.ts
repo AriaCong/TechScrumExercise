@@ -3,15 +3,14 @@ import { Request, Response } from 'express';
 import { validationResult } from 'express-validator'; // this is not there???
 import User from '../../model/user';
 import config from '../../config/app'; // the secret key is stored here
+import { UserData } from '../../types/User';
 
-export async function registerUser(body: {email: string, name: string, password: string}) {
-    //const email = req.body.email;
-    const { email =null} = body // QUESTION: Why does it need  =null ?
-    console.log("------------>");
+export async function registerUser(body: UserData) {
+    const { email=null} = body;
+    // console.log("body.email------------>", body.email);
+    // console.log("body.name------------>", body.name);
+    // console.log("body.password------------>", body.password);
     const user = await User.findOne({email}); // email: email
-    // if (user) {
-    //     return { error: 'User already exists' };
-    // }
     if (user) throw new Error('User already exists');
     const newUser = new User(body);
     const validationToken = jwt.sign({ id: newUser.id }, config.secret);
@@ -30,14 +29,15 @@ export async function registerUser(body: {email: string, name: string, password:
 5. Back to the controller. and compare
 */
 
-export async function loginUser(req: Request) {
-    const email = req.body.email;
-    const password = req.body.password;
+export async function loginUser(body: UserData) {
+    const {email} = body;
+    const {password} = body;
     const user = await User.findByCredentials(email, password);
     if (!user) {
         return { error: 'Invalid login credentials' };
     }
     const token = await user.generateJWTToken(); // this function is defined in the model
+    console.log("user logged in-->", user);
     return { user, ...{token: token } };
 }
 /* Log out steps:
@@ -46,16 +46,58 @@ export async function loginUser(req: Request) {
 3. Reset token field to empty string
 4. User.save()
 */
-export async function logoutUser(req: Request) {
-    const decode: any = jwt.verify(req.headers.authorization as string, config.secret);
-    const userId = decode.id;
-    const user = await User.findById(userId);
-    if(!user) {
-        throw new Error('User not found');
-    }
-    user.token = '';
-    user.save();
+// export async function logoutUser(body: UserData) {
+//     //const decode: any = jwt.verify(req.headers.authorization as string, config.secret);
+//     const decode: any = jwt.verify(req.headers.authorization, config.secret);
+//     const userId = decode.id;
+//     const user = await User.findById(userId);
+//     if(!user) {
+//         throw new Error('User not found');
+//     }
+//     user.token = '';
+//     user.save();
+
+// }
+
+
+export async function logoutUser(body: UserData) {
+
+    // const authHeader = req.headers.authorization;
+    console.log("logoutService-->", body);
+    const { email=null} = body;
+    // logoutUser(req.body);
+    // if (!authHeader) {
+    //     return res.status(401).json({ error: 'Authorization header is required' });
+    // }
+
+    // logoutUser(authHeader)
+    //     .then(() => {
+    //         res.send("[controller]: logoutController is called");
+    //     })
+    //     .catch((err) => {
+    //         res.status(500).json({ error: err.message });
+    //     });
+
+
+
+
+    // if (!authHeader) {
+    //     throw new Error('Authorization header is missing');
+    // }
+    // const decode: any = jwt.verify(authHeader, config.secret);
+    // const userId = decode.id;
+    // console.log("userId-->", userId);
+    // const user = await User.findById(userId);
+    // console.log("user-->", user);
+    // if (!user) {
+    //     throw new Error('User not found');
+    // }
+
+    // user.token = '';
+    // await user.save();
 }
+
+
 // TODO: Clarify the steps to login and logout
 
 /*

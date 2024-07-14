@@ -1,6 +1,4 @@
 import { Request, Response } from "express";
-// import * as ticketController
-// api 
 import {  indexTicket, showTicket, storeTicket, updateTicket, destroyTicket } from "../../services/v1/ticketService";
 import { validationResult } from "express-validator"; 
 import { TicketData } from '../../types/Ticket';
@@ -90,5 +88,6 @@ export function ticketDestroy (req: Request, res: Response) {
     }
     const result = destroyTicket();
     res.send(result);
-
 }
+
+export default { ticketIndex, ticketShow, ticketStore, ticketUpdate, ticketDestroy };

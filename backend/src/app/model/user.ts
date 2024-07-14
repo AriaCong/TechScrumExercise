@@ -96,3 +96,6 @@ const User = mongoose.model <IUser, IUserModel> (
     "User", userSchema
 );
 export default User;
+
+// const mongoose = require('mongoose');
+// module.exports = User;

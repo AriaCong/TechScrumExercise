@@ -30,6 +30,18 @@ export function logout(req: Request, res: Response) {
         return res.status(422).json({ errors: error.array() });
     }
     logoutUser(req.body);
-    res.send("[controller]:logoutController is called");
+    // const authHeader = req.headers.authorization;
+    // console.log("authHeader-->", req.headers);
+    // // logoutUser(req.body);
+    // if (!authHeader) {
+    //     return res.status(401).json({ error: 'Authorization header is required' });
+    // }
+
+    // logoutUser(authHeader)
+    //     .then(() => {
+    //         res.send("[controller]: logoutController is called");
+    //     })
+    //     .catch((err) => {
+    //         res.status(500).json({ error: err.message });
+    //     });
 }
-//export default, so it can be import in routes as xxx

@@ -1,24 +1,25 @@
 import { Router } from "express";
 import { userController } from "../../controller/v1/userController";
-import { ticketIndex, ticketShow, ticketStore, ticketUpdate, ticketDestroy } from "../../controller/v1/ticketController"; 
+import * as ticketController from "../../controller/v1/ticketController";
 import { register, login, logout } from "../../controller/v1/authController";
 import userValidation from "../../validations/v1/userValidation";
 import ticketValidation from "../../validations/v1/ticketValidation";
-import loginValidation  from "../../validations/v1/loginValidation";
+import loginValidation from "../../validations/v1/loginValidation";
+import registerValidation from "../../validations/v1/registerValidation";
 
 const router = Router();
 
 router.get("/user", userValidation.user, userController);
 router.post("/user", userValidation.user, userController);
 
-router.get("/tickets",  ticketValidation.ticket, ticketIndex);
-router.get("/ticket/:id", ticketValidation.ticket, ticketShow);
-router.post("/ticket", ticketValidation.ticket, ticketStore);
-router.put("/ticket/:id", ticketValidation.ticket, ticketUpdate);
-router.delete("/tickets", ticketValidation.ticket, ticketDestroy);
+router.get("/tickets",  ticketValidation.ticket, ticketController.ticketIndex);
+router.get("/ticket/:id", ticketValidation.ticket, ticketController.ticketShow);
+router.post("/ticket", ticketValidation.ticket, ticketController.ticketStore);
+router.put("/ticket/:id", ticketValidation.ticket, ticketController.ticketUpdate);
+router.delete("/tickets", ticketValidation.ticket, ticketController.ticketDestroy);
 
 router.post("/login", loginValidation.user, login);
-router.post("/register", loginValidation.user, register);
+router.post("/register", registerValidation.user, register);
 router.post("/logout", logout);
 
 export default router;
