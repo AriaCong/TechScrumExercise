@@ -1,9 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
+import "./loginPage.css";
+import { useNavigate } from "react-router-dom";
 
-function Logout() {
+function Login() {
+    const navigate = useNavigate();
     const [user, setUser] = useState ({
             email: "",
             password: ""
@@ -21,8 +24,12 @@ function Logout() {
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        axios.post('http://localhost:8000/api/v1/logout', user)
+        axios.post('http://localhost:8000/api/v1/login', user)
         .then(response => {
+            //console.log(response);
+            const {token} = response.data;
+            localStorage.setItem('token', token);
+            navigate("/user-settings");
             console.log(response);
         })
         .catch(error => {
@@ -56,4 +63,4 @@ function Logout() {
         </div>
     );
 }
-export default Logout;
+export default Login;

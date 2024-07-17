@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
 
-function Login() {
+function Logout() {
     const [user, setUser] = useState ({
             email: "",
             password: ""
@@ -21,7 +21,7 @@ function Login() {
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        axios.post('http://localhost:8000/api/v1/login', user)
+        axios.post('http://localhost:8000/api/v1/logout', user)
         .then(response => {
             console.log(response);
         })
@@ -56,4 +56,4 @@ function Login() {
         </div>
     );
 }
-export default Login;
+export default Logout;

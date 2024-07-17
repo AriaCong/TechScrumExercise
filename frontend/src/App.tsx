@@ -1,15 +1,15 @@
 import React from 'react';
 import './App.css';
-import './pages/register'
-import Register from './pages/register';
-import Login from './pages/login';
-import Logout from './pages/logout';
+import './pages/registeryPage/register'
+import Register from './pages/registeryPage/register';
+import Login from './pages/loginPage/login';
+import Logout from './pages/logoutPage/logout';
 import ToDoList from './pages/toDoList';
 
 function App() {
   return (
     <div className="App">
-      <Register/>
+      <Login/>
     </div>
   );
 }
