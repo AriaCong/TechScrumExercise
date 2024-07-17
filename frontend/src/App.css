@@ -79,6 +79,15 @@ footer p {
   color: #ccc;
 }
 
+
+li {
+  text-align: left;
+  position: relative;
+  padding: 0.5rem;
+  font-size: 2rem;
+  color:black
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

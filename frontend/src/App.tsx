@@ -4,11 +4,12 @@ import './pages/register'
 import Register from './pages/register';
 import Login from './pages/login';
 import Logout from './pages/logout';
+import ToDoList from './pages/toDoList';
 
 function App() {
   return (
     <div className="App">
-      <Logout/>
+      <Register/>
     </div>
   );
 }
