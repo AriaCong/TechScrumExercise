@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-
+import "./registerPage.css"
 function Register() {
     const [user, setUser] = useState ({
             name: "",

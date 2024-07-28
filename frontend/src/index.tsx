@@ -7,7 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './pages/loginPage/login';
 import Register from './pages/registeryPage/register';
 import UserSettingPage from './pages/userSettingPage/userSettingPage';
-
+import Logout from './pages/logoutPage/logout';
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -20,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/user-settings",
     element: <UserSettingPage />,
+  },
+  {
+    path: "/logout",
+    element: <Logout />,
   }
 ]);
 
